@@ -7,12 +7,17 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  // CORS_ORIGIN may be a single origin or a comma-separated list
-  // (e.g. "https://my-app.vercel.app,http://localhost:3000").
-  const corsOrigin = (process.env.CORS_ORIGIN ?? 'http://localhost:3000')
-    .split(',')
-    .map((o) => o.trim())
-    .filter(Boolean);
+  // CORS_ORIGIN can be a comma-separated list of allowed origins, or "*"
+  // (or unset) to reflect any origin. We authenticate with Bearer tokens,
+  // not cookies, so allowing any origin is safe and simplifies hosting.
+  const corsEnv = process.env.CORS_ORIGIN;
+  const corsOrigin =
+    !corsEnv || corsEnv === '*'
+      ? true
+      : corsEnv
+          .split(',')
+          .map((o) => o.trim())
+          .filter(Boolean);
   app.enableCors({ origin: corsOrigin, credentials: true });
 
   app.useGlobalPipes(

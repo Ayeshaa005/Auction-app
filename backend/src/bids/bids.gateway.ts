@@ -24,10 +24,12 @@ import { PlaceBidDto } from './dto/place-bid.dto';
 @WebSocketGateway({
   namespace: '/bids',
   cors: {
-    origin: (process.env.CORS_ORIGIN ?? 'http://localhost:3000')
-      .split(',')
-      .map((o) => o.trim())
-      .filter(Boolean),
+    origin:
+      !process.env.CORS_ORIGIN || process.env.CORS_ORIGIN === '*'
+        ? true
+        : process.env.CORS_ORIGIN.split(',')
+            .map((o) => o.trim())
+            .filter(Boolean),
   },
 })
 export class BidsGateway implements OnGatewayConnection {

@@ -121,7 +121,7 @@ export default function AuctionDetailPage({
           <img
             src={data.imageUrl}
             alt={data.title}
-            className="mt-4 rounded-lg w-full object-cover"
+            className="mt-4 rounded-lg w-full max-h-80 object-cover"
           />
         )}
         <h1 className="mt-4 text-2xl font-bold">{data.title}</h1>
@@ -156,7 +156,7 @@ export default function AuctionDetailPage({
             />
             <button
               type="submit"
-              className="rounded-md bg-black px-4 py-2 text-white hover:bg-gray-800"
+              className="rounded-md bg-black px-4 py-2 text-white hover:bg-gray-800 shrink-0 whitespace-nowrap"
             >
               Bid
             </button>
