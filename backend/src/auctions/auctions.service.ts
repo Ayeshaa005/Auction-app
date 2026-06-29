@@ -3,6 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { AuctionStatus } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateAuctionDto, UpdateAuctionDto } from './dto/auction.dto';
 
@@ -45,7 +46,8 @@ export class AuctionsService {
         description: dto.description,
         imageUrl: dto.imageUrl,
         startPrice: dto.startPrice,
-        startsAt: new Date(dto.startsAt),
+        status: AuctionStatus.LIVE,
+        startsAt: dto.startsAt ? new Date(dto.startsAt) : new Date(),
         endsAt: new Date(dto.endsAt),
         sellerId,
       },

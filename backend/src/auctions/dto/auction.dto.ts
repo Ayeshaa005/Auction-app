@@ -25,8 +25,9 @@ export class CreateAuctionDto {
   @Min(0)
   startPrice!: number;
 
+  @IsOptional()
   @IsDateString()
-  startsAt!: string;
+  startsAt?: string;
 
   @IsDateString()
   endsAt!: string;
